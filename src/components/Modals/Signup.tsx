@@ -1,8 +1,10 @@
+import { useModal } from "@/context/ModalContext";
 import React from "react";
 
 type SignupProps = {};
 
 const Signup: React.FC<SignupProps> = () => {
+  const {modalType, openModal, closeModal} = useModal();
   return (
     <>
       <form className="space-y-6 px-6 pb-4">
@@ -62,7 +64,7 @@ const Signup: React.FC<SignupProps> = () => {
         </button>
         <div className="text-sm font-medium text-gray-300">
           Already have an account?{" "}
-          <a href="#" className="text-blue-700 hover:underline">
+          <a onClick={() => openModal('login')} href="#" className="text-blue-700 hover:underline">
             Log In
           </a>
         </div>

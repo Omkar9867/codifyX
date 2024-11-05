@@ -2,10 +2,15 @@ import React from "react";
 import { IoClose } from "react-icons/io5";
 import Login from "./Login";
 import Signup from "./Signup";
+import ResetPassword from "./ResetPassword";
 
-type AuthModalProps = {};
+type AuthModalProps = {
+  modalType: 'signin' | 'login' | 'forgetPassword' | null;
+  onClose: () => void;
+};
 
-const AuthModal: React.FC<AuthModalProps> = () => {
+const AuthModal: React.FC<AuthModalProps> = ({modalType, onClose}) => {
+  if (!modalType) return null; 
   return (
     <>
       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-60"></div>
@@ -14,13 +19,14 @@ const AuthModal: React.FC<AuthModalProps> = () => {
           <div className="bg-white rounded-lg shadow relative w-full bg-gradient-to-b from-brand-orange to-slate-900 mx-6">
             <div className="flex justify-end p-2">
               <button
+                onClick={onClose}
                 type="button"
                 className="bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 text-white"
               >
                 <IoClose className="h-5 w-5" />
               </button>
             </div>
-            <Signup />
+            {modalType === 'signin' ? <Signup/> : modalType === 'login' ? <Login/> : <ResetPassword/>}
           </div>
         </div>
       </div>

@@ -1,10 +1,12 @@
 import AuthModal from "@/components/Modals/AuthModal";
 import Navbar from "@/components/Navbar/Navbar";
+import { useModal } from "@/context/ModalContext";
 import React from "react";
 
 type AuthPageProps = {};
 
 const AuthPage: React.FC<AuthPageProps> = () => {
+  const {modalType, openModal, closeModal} = useModal();
   return (
     <>
       <div className="bg-gradient-to-b from-gray-600 to-black h-screen relative">
@@ -13,7 +15,7 @@ const AuthPage: React.FC<AuthPageProps> = () => {
           <div className="flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none">
             <img src="/hero.png" alt="Hero img" />
           </div>
-          <AuthModal />
+          <AuthModal modalType={modalType} onClose={closeModal}/>
         </div>
       </div>
     </>
