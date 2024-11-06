@@ -4,7 +4,7 @@ import React from "react";
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
-  const {modalType, openModal, closeModal} = useModal();
+  const {openModal} = useModal();
   return (
     <>
       <form className="space-y-6 px-6 pb-4">

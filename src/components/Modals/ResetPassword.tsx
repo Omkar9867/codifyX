@@ -1,10 +1,10 @@
-import { useModal } from "@/context/ModalContext";
+// import { useModal } from "@/context/ModalContext";
 import React from "react";
 
 type ResetPasswordProps = {};
 
 const ResetPassword: React.FC<ResetPasswordProps> = () => {
-  const {modalType, openModal, closeModal} = useModal();
+  // const {modalType, openModal, closeModal} = useModal();
   return (
     <>
       <form className="space-y-6 px-6 lg:px-8 pb-4 sm:pb-6 xl:pb-8">

@@ -1,13 +1,25 @@
 import { useModal } from "@/context/ModalContext";
-import React from "react";
+import React, { useState } from "react";
 
 type SignupProps = {};
 
 const Signup: React.FC<SignupProps> = () => {
-  const {modalType, openModal, closeModal} = useModal();
+  const { openModal } = useModal();
+  const [inputs, setInputs] = useState({
+    email: "",
+    displayName: "",
+    password: "",
+  });
+  const handleChangeInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setInputs((prev) => ({...prev, [e.target.name]: e.target.value}) )
+  };
+  const handleRegister = (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(inputs)
+  }
   return (
     <>
-      <form className="space-y-6 px-6 pb-4">
+      <form onSubmit={handleRegister} className="space-y-6 px-6 pb-4">
         <h3 className="text-xl font-medium text-white">
           Register to AlgoRaider
         </h3>
@@ -19,6 +31,7 @@ const Signup: React.FC<SignupProps> = () => {
             Email
           </label>
           <input
+          onChange={handleChangeInput}
             type="email"
             name="email"
             id="email"
@@ -34,6 +47,7 @@ const Signup: React.FC<SignupProps> = () => {
             Display Name
           </label>
           <input
+          onChange={handleChangeInput}
             type="displayName"
             name="displayName"
             id="displayName"
@@ -49,6 +63,7 @@ const Signup: React.FC<SignupProps> = () => {
             Password
           </label>
           <input
+          onChange={handleChangeInput}
             type="password"
             name="password"
             id="password"
@@ -64,7 +79,11 @@ const Signup: React.FC<SignupProps> = () => {
         </button>
         <div className="text-sm font-medium text-gray-300">
           Already have an account?{" "}
-          <a onClick={() => openModal('login')} href="#" className="text-blue-700 hover:underline">
+          <a
+            onClick={() => openModal("login")}
+            href="#"
+            className="text-blue-700 hover:underline"
+          >
             Log In
           </a>
         </div>

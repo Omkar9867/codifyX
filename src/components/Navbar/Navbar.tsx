@@ -5,7 +5,7 @@ import React from "react";
 type NavbarProps = {};
 
 const Navbar: React.FC<NavbarProps> = () => {
-  const {modalType, openModal, closeModal} = useModal();
+  const {openModal} = useModal();
   return (
     <>
       <div className="flex items-center justify-between sm:px-12 px-2 md:px-24">
