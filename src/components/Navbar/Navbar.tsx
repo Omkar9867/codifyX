@@ -10,7 +10,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     <>
       <div className="flex items-center justify-between sm:px-12 px-2 md:px-24">
         <Link href="/" className="flex items-center justify-center h-20">
-          <img src="/logo.png" alt="AlgoRaider" className="h-full" />
+          <img src="/logo.png" alt="CodifyX" className="h-full" />
         </Link>
         <div className="flex items-center">
           <button

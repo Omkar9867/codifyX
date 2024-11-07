@@ -10,18 +10,18 @@ const Signup: React.FC<SignupProps> = () => {
     displayName: "",
     password: "",
   });
-  const handleChangeInput = (e:React.ChangeEvent<HTMLInputElement>) => {
-    setInputs((prev) => ({...prev, [e.target.name]: e.target.value}) )
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const handleRegister = (e:React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputs)
-  }
+    console.log(inputs);
+  };
   return (
     <>
       <form onSubmit={handleRegister} className="space-y-6 px-6 pb-4">
         <h3 className="text-xl font-medium text-white">
-          Register to AlgoRaider
+          Register to CodifyX
         </h3>
         <div>
           <label
@@ -31,7 +31,7 @@ const Signup: React.FC<SignupProps> = () => {
             Email
           </label>
           <input
-          onChange={handleChangeInput}
+            onChange={handleChangeInput}
             type="email"
             name="email"
             id="email"
@@ -47,7 +47,7 @@ const Signup: React.FC<SignupProps> = () => {
             Display Name
           </label>
           <input
-          onChange={handleChangeInput}
+            onChange={handleChangeInput}
             type="displayName"
             name="displayName"
             id="displayName"
@@ -63,7 +63,7 @@ const Signup: React.FC<SignupProps> = () => {
             Password
           </label>
           <input
-          onChange={handleChangeInput}
+            onChange={handleChangeInput}
             type="password"
             name="password"
             id="password"

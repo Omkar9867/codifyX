@@ -1,14 +1,22 @@
 import { useModal } from "@/context/ModalContext";
-import React from "react";
+import React, { useState } from "react";
 
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
-  const {openModal} = useModal();
+  const { openModal } = useModal();
+  const [inputs, setInput] = useState({email: '', password: ''})
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput((prev) => ({...prev, [e.target.name]: e.target.value}))
+  }
+  const handleLogin = async(e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(inputs)
+  }
   return (
     <>
-      <form className="space-y-6 px-6 pb-4">
-        <h3 className="text-xl font-medium text-white">SignIn to AlgoRaider</h3>
+      <form onClick={handleLogin} className="space-y-6 px-6 pb-4">
+        <h3 className="text-xl font-medium text-white">SignIn to CodifyX</h3>
         <div>
           <label
             htmlFor="email"
@@ -17,6 +25,7 @@ const Login: React.FC<LoginProps> = () => {
             Your Email
           </label>
           <input
+          onChange={handleInputChange}
             type="email"
             name="email"
             id="email"
@@ -32,6 +41,7 @@ const Login: React.FC<LoginProps> = () => {
             Your Password
           </label>
           <input
+          onChange={handleInputChange}
             type="password"
             name="password"
             id="password"
@@ -47,7 +57,7 @@ const Login: React.FC<LoginProps> = () => {
         </button>
         <button className="flex w-full justify-end">
           <a
-            onClick={() => openModal('forgetPassword')}
+            onClick={() => openModal("forgetPassword")}
             href="#"
             className="text-sm block text-brand-orange hover:underline w-full text-right"
           >
@@ -56,7 +66,11 @@ const Login: React.FC<LoginProps> = () => {
         </button>
         <div className="text-sm font-medium text-gray-300">
           Not Registered?{" "}
-          <a onClick={() => openModal('signin')} href="#" className="text-blue-700 hover:underline">
+          <a
+            onClick={() => openModal("signin")}
+            href="#"
+            className="text-blue-700 hover:underline"
+          >
             Create Account
           </a>
         </div>
