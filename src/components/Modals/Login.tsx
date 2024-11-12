@@ -1,9 +1,11 @@
 import { useModal } from "@/context/ModalContext";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
+  const router = useRouter();
   const { openModal } = useModal();
   const [inputs, setInput] = useState({ email: "", password: "" });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +25,7 @@ const Login: React.FC<LoginProps> = () => {
       if (response.ok) {
         console.log("Login Successfull: ", data);
         localStorage.setItem("token", data.token);
+        router.push("/");
       } else {
         console.error("Login failed:", data.message);
       }
