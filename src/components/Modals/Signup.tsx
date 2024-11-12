@@ -13,16 +13,32 @@ const Signup: React.FC<SignupProps> = () => {
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const handleRegister = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputs);
+    try {
+      const response = await fetch("api/v1/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputs),
+      });
+      //After receiving the call
+      const data = await response.json();
+      if (response.ok) {
+        console.log("User created:", data);
+        openModal('login')
+      } else {
+        console.error("Signup error:", data.message);
+      }
+    } catch (error) {
+      console.error("Error sending signup request:", error);
+    }
   };
   return (
     <>
       <form onSubmit={handleRegister} className="space-y-6 px-6 pb-4">
-        <h3 className="text-xl font-medium text-white">
-          Register to CodifyX
-        </h3>
+        <h3 className="text-xl font-medium text-white">Register to CodifyX</h3>
         <div>
           <label
             htmlFor="email"

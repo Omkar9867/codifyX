@@ -5,17 +5,34 @@ type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
   const { openModal } = useModal();
-  const [inputs, setInput] = useState({email: '', password: ''})
+  const [inputs, setInput] = useState({ email: "", password: "" });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput((prev) => ({...prev, [e.target.name]: e.target.value}))
-  }
-  const handleLogin = async(e:React.FormEvent<HTMLFormElement>) => {
+    setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputs)
-  }
+    try {
+      const response = await fetch("api/v1/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputs),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log("Login Successfull: ", data);
+        localStorage.setItem("token", data.token);
+      } else {
+        console.error("Login failed:", data.message);
+      }
+    } catch (error) {
+      console.error("Error sending login request:", error);
+    }
+  };
   return (
     <>
-      <form onClick={handleLogin} className="space-y-6 px-6 pb-4">
+      <form onSubmit={handleLogin} className="space-y-6 px-6 pb-4">
         <h3 className="text-xl font-medium text-white">SignIn to CodifyX</h3>
         <div>
           <label
@@ -25,7 +42,7 @@ const Login: React.FC<LoginProps> = () => {
             Your Email
           </label>
           <input
-          onChange={handleInputChange}
+            onChange={handleInputChange}
             type="email"
             name="email"
             id="email"
@@ -41,7 +58,7 @@ const Login: React.FC<LoginProps> = () => {
             Your Password
           </label>
           <input
-          onChange={handleInputChange}
+            onChange={handleInputChange}
             type="password"
             name="password"
             id="password"
