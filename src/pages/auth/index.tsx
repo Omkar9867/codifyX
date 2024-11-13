@@ -1,10 +1,20 @@
 import AuthModal from "@/components/Modals/AuthModal";
 import Navbar from "@/components/Navbar/Navbar";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 
 type AuthPageProps = {};
 
 const AuthPage: React.FC<AuthPageProps> = () => {
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/");
+    } else {
+      router.push("/auth");
+    }
+  }, [router]);
   return (
     <>
       <div className="bg-gradient-to-b from-gray-600 to-black h-screen relative">
