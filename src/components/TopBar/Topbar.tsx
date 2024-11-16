@@ -3,15 +3,19 @@ import React, { useEffect, useState } from "react";
 import Logout from "../Buttons/Logout";
 import { useModal } from "@/context/ModalContext";
 import Image from "next/image";
+import { FaChevronLeft } from "react-icons/fa";
 
-type TopbarProps = {};
+type TopbarProps = {
+  problemsPage: boolean
+};
+
 type User = {
   id: number;
   email?: string;
   displayName?: string;
 };
 
-const Topbar: React.FC<TopbarProps> = () => {
+const Topbar: React.FC<TopbarProps> = ({problemsPage}) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const { openModal } = useModal();
@@ -37,6 +41,14 @@ const Topbar: React.FC<TopbarProps> = () => {
           <Link href={"/"} className="h-[22px] flex-1">
             <Image src={"/logo-full.png"} alt="logo" height={100} width={100}/>
           </Link>
+
+          {problemsPage && (
+            <div className="flex items-center gap-4 flex-1 justify-center">
+              <div className="flex items-center justify-center rounded dark-fill-3">
+                <FaChevronLeft/>
+              </div>
+            </div>
+          )}
 
           <div className="flex items-center space-x-4 flex-1 justify-end">
             <div>
