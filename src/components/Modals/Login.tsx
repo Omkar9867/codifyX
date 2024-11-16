@@ -1,6 +1,7 @@
 import { useModal } from "@/context/ModalContext";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 type LoginProps = {};
 
@@ -23,14 +24,33 @@ const Login: React.FC<LoginProps> = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        console.log("Login Successfull: ", data);
+        toast.success("Login Successfull: ", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        // console.log("Login Successfull: ", data);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
         router.push("/");
       } else {
+        toast.error(data.message, {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
         console.error("Login failed:", data.message);
       }
     } catch (error) {
-      console.error("Error sending login request:", error);
+      if (error) {
+        toast.error("Error sending login request:", {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        4;
+        console.log(error);
+      }
     }
   };
   return (
