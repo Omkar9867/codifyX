@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import Logout from "../Buttons/Logout";
 import { useModal } from "@/context/ModalContext";
 import Image from "next/image";
-import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { BsList } from "react-icons/bs";
+import Timer from "../Timer/Timer";
 
 type TopbarProps = {
-  problemsPage: boolean
+  problemsPage: boolean;
 };
 
 type User = {
@@ -15,7 +17,7 @@ type User = {
   displayName?: string;
 };
 
-const Topbar: React.FC<TopbarProps> = ({problemsPage}) => {
+const Topbar: React.FC<TopbarProps> = ({ problemsPage }) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const { openModal } = useModal();
@@ -36,21 +38,36 @@ const Topbar: React.FC<TopbarProps> = ({problemsPage}) => {
     <>
       <nav className="relative flex h-[50px] w-full shrink-0 items-center px-5 bg-dark-layer-1 text-dark-gray-7">
         <div
-          className={`flex w-full items-center justify-between max-w-[1200px] mx-auto`}
+          className={`flex w-full items-center justify-between ${
+            !problemsPage ? "max-w-[1200px] mx-auto" : ""
+          }`}
         >
           <Link href={"/"} className="h-[22px] flex-1">
-            <Image src={"/logo-full.png"} alt="logo" height={100} width={100}/>
+            <Image src={"/logo-full.png"} alt="logo" height={100} width={100} />
           </Link>
-
+          {/* If on problems page */}
           {problemsPage && (
             <div className="flex items-center gap-4 flex-1 justify-center">
-              <div className="flex items-center justify-center rounded dark-fill-3">
-                <FaChevronLeft/>
+              <div className="flex items-center justify-center rounded bg-dark-fill-3 hover:bg-dark-fill-2 h-8 w-8 cursor-pointer">
+                <FaChevronLeft />
+              </div>
+              <Link
+                href={"/"}
+                className="flex items-center gap-2 font-medium max-w-[170px] text-dark-gray-8 cursor-pointer"
+              >
+                <div>
+                  <BsList />
+                </div>
+                <p>Problems List</p>
+              </Link>
+              <div className="flex items-center justify-center rounded bg-dark-fill-3 hover:bg-dark-fill-2 h-8 w-8 cursor-pointer">
+                <FaChevronRight />
               </div>
             </div>
           )}
 
           <div className="flex items-center space-x-4 flex-1 justify-end">
+            {problemsPage && <Timer />}
             <div>
               <a
                 href="https://www.buymeacoffee.com"
