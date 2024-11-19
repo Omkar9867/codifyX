@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@uiw/codemirror-theme-vscode": "^4.23.6",
+    "@uiw/react-codemirror": "^4.23.6",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.10.0",
