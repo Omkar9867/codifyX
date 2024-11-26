@@ -6,6 +6,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
       const {
+        id,
         title,
         problemStatement,
         examples,
@@ -21,6 +22,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       const collection = db.collection("problems");
 
       const result = await collection.insertOne({
+        id,
         title,
         problemStatement,
         examples,

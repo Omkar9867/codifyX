@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-
 export type Example = {
     id: number;
     inputText: string;
@@ -9,7 +7,7 @@ export type Example = {
   };
   
   export type Problem = {
-    _id?: string | ObjectId;
+    id: string;
     title: string;
     problemStatement: string;
     examples: Example[];

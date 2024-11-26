@@ -3,6 +3,7 @@ import { Problem, Example } from '../../utils/types/problemTypes'; // Assuming y
 
 const SubmitProblem = () => {
   const [formData, setFormData] = useState<Problem>({
+    id: '',
     title: '',
     problemStatement: '',
     examples: [],
@@ -58,7 +59,7 @@ const SubmitProblem = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/submit-problem', {
+      const response = await fetch('/api/v1/submit-problem', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ const SubmitProblem = () => {
       <h1 className="text-3xl font-semibold text-brand-orange mb-6">Submit Problem to Database</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic fields */}
-        {/* <div>
+        <div>
           <label className="block text-dark-gray-7">Problem ID:</label>
           <input
             type="text"
@@ -92,7 +93,7 @@ const SubmitProblem = () => {
             required
             className="w-full p-2 mt-2 rounded-md bg-dark-fill-2 text-dark-gray-8 border border-dark-divider-border-2"
           />
-        </div> */}
+        </div>
 
         <div>
           <label className="block text-dark-gray-7">Title:</label>
