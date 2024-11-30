@@ -5,11 +5,11 @@ import { Problem } from "@/utils/types/problemTypes";
 import React from "react";
 
 type ProblemPageProps = {
-  problem: Problem
+  problem: Problem;
 };
 
-const ProblemPage: React.FC<ProblemPageProps> = ({problem}) => {
-  console.log(problem)
+const ProblemPage: React.FC<ProblemPageProps> = ({ problem }) => {
+  console.log(problem);
   return (
     <>
       <Topbar problemsPage />
@@ -25,16 +25,11 @@ const ProblemPage: React.FC<ProblemPageProps> = ({problem}) => {
 export async function getStaticPaths() {
   try {
     const problems = await getAllProblems();
-    const paths = problems.map((problem) => {
-      params: {
-        pid: problem.id;
-      }
-    });
+    const paths = problems.map((problem) => ({
+      params: { pid: problem.id }, // Map problem IDs for dynamic routes
+    }));
 
-    return {
-      paths,
-      fallback: false,
-    };
+    return { paths, fallback: false };
   } catch (error) {
     console.error("Cannot get Problems and Paths", error);
     return { paths: [], fallback: false };
@@ -44,24 +39,19 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: { params: { pid: string } }) {
   try {
     const problems = await getAllProblems();
-    const result = problems.map((problem) => {
-      problem.id === params.pid;
-    });
+    const result = problems.find((problem) => problem.id === params.pid);
+
     if (!result) {
-      return {
-        notFound: true,
-      };
+      return { notFound: true };
     }
+
     return {
-      props: {
-        result,
-      },
+      props: { problem: result },
     };
   } catch (error) {
     console.error("Cannot get Problems and Props", error);
-    return {
-      notFound: true,
-    };
+    return { notFound: true };
   }
 }
+
 export default ProblemPage;
