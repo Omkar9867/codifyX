@@ -2,6 +2,7 @@ import Topbar from "@/components/TopBar/Topbar";
 import Workspace from "@/components/Workspace/Workspace";
 import { getAllProblems } from "@/utils/fetch/fetchProblems";
 import { Problem } from "@/utils/types/problemTypes";
+import * as handlerFn from "../../utils/handlers/problemHandlers"
 import React from "react";
 
 type ProblemPageProps = {
@@ -19,7 +20,7 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ problem }) => {
 };
 
 //fetch the problemsData
-//ssg
+//Static Site Generation (SSG) process
 //getStaticPaths it creates dynamic routes
 
 export async function getStaticPaths() {
@@ -36,13 +37,34 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }: { params: { pid: string } }) {
+
+export async function getStaticProps({ params }: { params: { pid: string } }) { //it will fetch the specific data associated with that route
   try {
     const problems = await getAllProblems();
     const result = problems.find((problem) => problem.id === params.pid);
 
     if (!result) {
       return { notFound: true };
+    }
+
+    const handlerFunctionName = result.handlerFunction;
+
+    if (result.handlerFunction) {
+      try {
+        const handlerModule = handlerFn[handlerFunctionName as keyof typeof handlerFn];
+
+        // Dynamically access the function by name
+        // const handlerFn = handlerModule[result.handlerFunction];
+
+        if (typeof handlerFn !== 'function') {
+          throw new Error(`Handler function '${result.handlerFunction}' is not a function.`);
+        }
+
+        result.handlerFunction = handlerModule; 
+      } catch (error) {
+        console.error(`Failed to load handler function: ${result.handlerFunction}`, error);
+        return { notFound: true };
+      }
     }
 
     return {

@@ -14,7 +14,7 @@ export type Example = {
     constraints: string;
     order: number;
     starterCode: string;
-    handlerFunction: string;
+    handlerFunction: ((fn: any) => boolean) | string;
     starterFunctionName: string;
   };
   
