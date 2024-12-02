@@ -1,11 +1,14 @@
+import { Problem } from "@/utils/types/problemTypes";
 import React from "react";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { BsCheck2Circle } from "react-icons/bs";
 import { TiStarOutline } from "react-icons/ti";
 
-type ProblemDescriptionProps = {};
+type ProblemDescriptionProps = {
+  problem: Problem;
+};
 
-const ProblemDescription: React.FC<ProblemDescriptionProps> = () => {
+const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem }) => {
   return (
     <>
       <div className="bg-dark-layer-1">
@@ -26,7 +29,7 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = () => {
             <div className="w-full">
               <div className="flex space-x-4">
                 <div className="flex-1 mr-2 text-lg text-white font-medium">
-                  1.Two Sum
+                  {problem?.title}
                 </div>
               </div>
               <div className="flex items-center mt-3">
@@ -54,36 +57,39 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = () => {
               </div>
               {/* Problem Statement(paragraphs) */}
               <div className="text-white text-sm">
-                <p className="mt-3">
-                  Given an array oof integers <code>num</code> add an integer{" "}
-                  <code>target</code> return{" "}
-                  <em>indices of two numbers such that they add upto </em>{" "}
-                  <code>target</code>
-                </p>
-                <p className="mt-3">
-                  You may assume that each input have one{" "}
-                  <strong>solution</strong>
-                </p>
-                <p className="mt-3">You can return the answer in any order</p>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: problem?.problemStatement,
+                  }}
+                />
               </div>
               {/* Examples */}
               <div className="mt-4">
-                <div>
-                  <p className="font-medium text-white ">Example 1: </p>
-
-                  <div className="example-card">
-                    <pre>
-                      <strong className="text-white">Input: </strong> nums =
-                      [3,3], target = 6 <br />
-                      <strong>Output:</strong>
-                      [1,2] <br />
+                {problem.examples.map((example, idx) => (
+                  <div key={idx}>
+                    <p className="font-medium text-white ">
+                      Example {idx + 1}:{" "}
+                    </p>
+                    {example.img && (
                       <>
-                        <strong>Explanation:</strong> Because nums[0] + num[1]
-                        == 9
+                        <img src={example.img} alt="" />
                       </>
-                    </pre>
+                    )}
+                    <div className="example-card">
+                      <pre>
+                        <strong className="text-white">Input: </strong>
+                        {example?.inputText} <br />
+                        <strong>Output: </strong>
+                        {example?.outputText} <br />
+                        {example?.explanation && (
+                          <>
+                            <strong>Explanation:</strong> {example.explanation}
+                          </>
+                        )}
+                      </pre>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
               {/* Constraints */}
               <div className="my-8 pb-4">
@@ -91,15 +97,8 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = () => {
                   Constraints:
                 </div>
                 <ul className="text-white ml-5 list-disc ">
-                  <li className="mt-2">
-                    <code>2 _ nums.length _^ 10</code>
-                  </li>
-                  <li className="mt-2">
-                    <code>2 _ nums.length _^ 10</code>
-                  </li>
-                  <li className="mt-2">
-                    <strong>Only valid answer exist</strong>
-                  </li>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: problem.constraints }}/>
                 </ul>
               </div>
             </div>

@@ -2,7 +2,6 @@ import Topbar from "@/components/TopBar/Topbar";
 import Workspace from "@/components/Workspace/Workspace";
 import { getAllProblems } from "@/utils/fetch/fetchProblems";
 import { Problem } from "@/utils/types/problemTypes";
-import * as handlerFn from "../../utils/handlers/problemHandlers"
 import React from "react";
 
 type ProblemPageProps = {
@@ -14,7 +13,7 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ problem }) => {
   return (
     <>
       <Topbar problemsPage />
-      <Workspace />
+      <Workspace problem={problem} />
     </>
   );
 };
@@ -47,25 +46,23 @@ export async function getStaticProps({ params }: { params: { pid: string } }) { 
       return { notFound: true };
     }
 
-    const handlerFunctionName = result.handlerFunction;
+    // if (result.handlerFunction) {
+    //   try {
+    //     const handlerModule = handlerFn[result.handlerFunction as keyof typeof handlerFn];
 
-    if (result.handlerFunction) {
-      try {
-        const handlerModule = handlerFn[handlerFunctionName as keyof typeof handlerFn];
+    //     // Dynamically access the function by name
+    //     // const handlerFn = handlerModule[result.handlerFunction];
 
-        // Dynamically access the function by name
-        // const handlerFn = handlerModule[result.handlerFunction];
+    //     // if (typeof handlerFn !== 'function') {
+    //     //   throw new Error(`Handler function '${result.handlerFunction}' is not a function.`);
+    //     // }
 
-        if (typeof handlerFn !== 'function') {
-          throw new Error(`Handler function '${result.handlerFunction}' is not a function.`);
-        }
-
-        result.handlerFunction = handlerModule; 
-      } catch (error) {
-        console.error(`Failed to load handler function: ${result.handlerFunction}`, error);
-        return { notFound: true };
-      }
-    }
+    //     // result.handlerFunction = handlerModule; 
+    //   } catch (error) {
+    //     console.error(`Failed to load handler function: ${result.handlerFunction}`, error);
+    //     return { notFound: true };
+    //   }
+    // }
 
     return {
       props: { problem: result },
