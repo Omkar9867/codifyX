@@ -48,7 +48,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem }) => {
               {problem.examples.map((example, idx) => (
                 <div
                   className="mr-2 items-start mt-2"
-                  key={idx}
+                  key={example.id}
                   onClick={() => setActiveTestCaseId(idx)}
                 >
                   <div className="flex flex-wrap items-center gap-y-4">

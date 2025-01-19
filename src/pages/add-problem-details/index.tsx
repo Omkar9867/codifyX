@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Problem, Example } from '../../utils/types/problemTypes'; // Assuming you export these types from the correct location
 
-const SubmitProblem = () => {
+const PostProblemDetails = () => {
   const [formData, setFormData] = useState<Problem>({
     id: '',
     title: '',
@@ -59,7 +59,7 @@ const SubmitProblem = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/v1/submit-problem', {
+      const response = await fetch('/api/v1/auth/post-problem-details', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -257,4 +257,4 @@ const SubmitProblem = () => {
   );
 };
 
-export default SubmitProblem;
+export default PostProblemDetails;
