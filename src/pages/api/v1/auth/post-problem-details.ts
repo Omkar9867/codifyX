@@ -19,7 +19,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
       const client = await clientPromise;
       const db = client.db();
-      const collection = db.collection("problems");
+      const collection = db.collection("problem-details");
 
       const result = await collection.insertOne({
         id,

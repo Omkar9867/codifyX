@@ -18,7 +18,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }: ProblemData = req.body;
       const client = await clientPromise;
       const db = client.db();
-      const collection = db.collection("problemData");
+      const collection = db.collection("problems");
 
       const result = collection.insertOne({
         id,
