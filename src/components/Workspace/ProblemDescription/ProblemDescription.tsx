@@ -65,7 +65,7 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem }) => {
               </div>
               {/* Examples */}
               <div className="mt-4">
-                {problem.examples.map((example, idx) => (
+                {problem?.examples?.map((example, idx) => (
                   <div key={idx}>
                     <p className="font-medium text-white ">
                       Example {idx + 1}:{" "}
@@ -98,7 +98,7 @@ const ProblemDescription: React.FC<ProblemDescriptionProps> = ({ problem }) => {
                 </div>
                 <ul className="text-white ml-5 list-disc ">
                   <div
-                    dangerouslySetInnerHTML={{ __html: problem.constraints }}/>
+                    dangerouslySetInnerHTML={{ __html: problem?.constraints }}/>
                 </ul>
               </div>
             </div>

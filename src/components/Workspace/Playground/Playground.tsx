@@ -26,7 +26,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem }) => {
         >
           <div className="w-full overflow-auto">
             <ReactCodeMirror
-              value={problem.starterCode}
+              value={problem?.starterCode}
               theme={vscodeDark}
               extensions={[javascript()]}
               style={{ fontSize: 16 }}
@@ -45,7 +45,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem }) => {
 
             <div className="flex">
               {/* cases*/}
-              {problem.examples.map((example, idx) => (
+              {problem?.examples?.map((example, idx) => (
                 <div
                   className="mr-2 items-start mt-2"
                   key={example.id}
@@ -67,11 +67,11 @@ const Playground: React.FC<PlaygroundProps> = ({ problem }) => {
             <div className="font-semibold my-4">
               <p className="text-sm font-medium mt-4 text-white">Input:</p>
               <div className="w-full cursor-text rounded-lg border px-3 py-[10px] bg-dark-fill-3 border-transparent text-white mt-2">
-                {problem.examples[activeTestCaseId].inputText}
+                {problem?.examples[activeTestCaseId]?.inputText}
               </div>
               <p className="text-sm font-medium mt-4 text-white">Output:</p>
               <div className="w-full cursor-text rounded-lg border px-3 py-[10px] bg-dark-fill-3 border-transparent text-white mt-2">
-                {problem.examples[activeTestCaseId].outputText}
+                {problem?.examples[activeTestCaseId]?.outputText}
               </div>
             </div>
           </div>

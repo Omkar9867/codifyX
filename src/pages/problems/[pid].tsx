@@ -24,6 +24,7 @@ const ProblemPage: React.FC<ProblemPageProps> = ({ problem }) => {
 export async function getStaticPaths() {
   try {
     const problems = await getAllProblems();
+    console.log({problems})
     const paths = problems.map((problem) => ({
       params: { pid: problem.id }, // Map problem IDs for dynamic routes
     }));
